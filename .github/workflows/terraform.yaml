@@ -56,14 +56,17 @@ jobs:
           ### Validate
       - name: Terraform Validate
         run: terraform validate
-        
+
       - name: Print Working Directory
         run: pwd
           ### Plan
       - name: Terraform Plan
         if: steps.read-destroy-config.outputs.destroy != 'true'
         id: terraform-plan
-        run: cd infra &&
+        run: |
+              pwd
+              cd infra
+              pwd
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
               terraform plan -var-file="/environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
           ### Apply
@@ -71,6 +74,6 @@ jobs:
       - name: Terraform Apply
         if: steps.read-destroy-config.outputs.destroy != 'true' 
         id: terraform-apply
-        run: cd infra &&
+        run: 
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
               terraform apply "${{ inputs.environment }}.plan"
