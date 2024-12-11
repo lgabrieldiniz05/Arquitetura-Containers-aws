@@ -14,7 +14,7 @@ jobs:
     terraform:
         uses: ./.github/workflows/terraform.yaml
         with: 
-            environment: "main"
+            environment: "dev"
             aws-assume-role-arn: "arn:aws:iam::655026170372:role/lucas_Devops_Github_Actions"
             aws-region: "us-east-1"
             aws-statefile-s3-bucket: "terraform-statesfiles-lucas"
