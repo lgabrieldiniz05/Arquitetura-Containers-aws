@@ -21,7 +21,7 @@ pipeline {
                     export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
                     echo "Variáveis configuradas: "
                     echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
-                    echo "AWS_SECRET_ACCESS_KEY=****"
+                    echo "AWS_SECRETS_ACCESS_KEY=****"
                     echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION"
                     '''
                 }
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY'),
+                    string(credentialsId: 'AWS_SECRETS_ACCESS_KEY', variable: 'AWS_SECRETS_ACCESS_KEY'),
                     string(credentialsId: 'AWS_BUCKET', variable: 'AWS_BUCKET'),
                     string(credentialsId: 'AWS_BUCKET_KEY', variable: 'AWS_BUCKET_KEY')
                 ]) {
@@ -40,7 +40,7 @@ pipeline {
                     sh '''
                     echo "Inicializando Terraform com backend S3..."
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                    export AWS_SECRETS_ACCESS_KEY=$AWS_SECRETS_ACCESS_KEY
                     export AWS_REGION=${AWS_DEFAULT_REGION}
                     terraform init -no-color -backend-config="bucket=$AWS_BUCKET" \
                                                  -backend-config="key=$AWS_BUCKET_KEY" \
