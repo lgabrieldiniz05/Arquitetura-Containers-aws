@@ -27,6 +27,7 @@ pipeline {
                 }
             }
         }
+    }
     stages {
         stage('init'){
             steps {
