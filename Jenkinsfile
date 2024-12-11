@@ -35,7 +35,11 @@ pipeline {
                     string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) 
                 dir('.') { // Representa o diretório raiz
-                    sh '''terraform init -no-color -backend-config="bucket=$AWS_BUCKET" \
+                    sh '''
+                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                        export AWS_REGION=$AWS_REGION
+                    terraform init -no-color -backend-config="bucket=$AWS_BUCKET" \
                                                  -backend-config="key=$AWS_BUCKET_KEY" \
                                                  -backend-config="region=$AWS_DEFAULT_REGION"
                     '''
