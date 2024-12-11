@@ -22,7 +22,7 @@ pipeline {
                     echo "Variáveis configuradas: "
                     echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
                     echo "AWS_SECRET_ACCESS_KEY=****"
-                    echo "AWS_REGION=$AWS_REGION"
+                    echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION"
                     ''' 
                 }
             }
