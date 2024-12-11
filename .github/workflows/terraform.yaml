@@ -65,6 +65,7 @@ jobs:
               pwd
               cd infra
               pwd
+              ls
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
               terraform plan -var-file="/environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
           ### Apply
