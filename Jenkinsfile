@@ -1,13 +1,20 @@
 pipeline {
     agent any
-
+    environment (
+        AWS_ACCESS_KEY_ID =  credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRETS_ACCESS_KEY =  credentials('AWS_SECRETS_ACCESS_KEY')
+        AWS_DEFAULT_REGION =  credentials('AWS_DEFAULT_REGION')
+        AWS_BUCKET =  credentials('AWS_BUCKET')
+        AWS_BUCKET_KEY =  credentials('AWS_BUCKET_KEY')
+    )
     stages {
-
-        stage("Checkout source"){
+        stage('init'){
             steps {
-                git url: "https://github.com/lgabrieldiniz05/Arquitetura-Containers-aws.git", branch: 'main'
-                sh 'ls' 
+                dir('.') { // Representa o diretório raiz
+                    sh 'terraform init -no-color'
+                }
             }
         }
+
     }
 }
