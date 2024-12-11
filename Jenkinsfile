@@ -23,11 +23,11 @@ pipeline {
                     echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
                     echo "AWS_SECRET_ACCESS_KEY=****"
                     echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION"
-                    ''' 
+                    '''
                 }
             }
         }
-    
+    }
         stage('init'){
             steps {
                 withCredentials([
@@ -35,7 +35,7 @@ pipeline {
                     string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY'),
                     string(credentialsId: 'AWS_BUCKET', variable: 'AWS_BUCKET'),
                     string(credentialsId: 'AWS_BUCKET_KEY', variable: 'AWS_BUCKET_KEY')
-                ]) 
+                ]) {
                 dir('.') { // Representa o diretório raiz
                     sh '''
                     echo "Inicializando Terraform com backend S3..."
@@ -48,7 +48,9 @@ pipeline {
                     '''
                 }
             }
+            
         }
-
     }
+
 }
+
