@@ -56,6 +56,9 @@ jobs:
           ### Validate
       - name: Terraform Validate
         run: terraform validate
+        
+      - name: Print Working Directory
+        run: pwd
           ### Plan
       - name: Terraform Plan
         if: steps.read-destroy-config.outputs.destroy != 'true'
