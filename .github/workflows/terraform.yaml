@@ -55,7 +55,7 @@ jobs:
         id: terraform-plan
         run: cd infra &&
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-              terraform plan -var-file="./environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
+              terraform plan -var-file="./infra/environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
 
       - name: Terraform Apply
         if: steps.read-destroy-config.outputs.destroy != 'true'
