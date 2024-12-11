@@ -70,5 +70,5 @@ jobs:
         if: steps.read-destroy-config.outputs.destroy != 'true' 
         id: terraform-apply
         run: 
-              terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-              terraform apply "${{ inputs.environment }}.plan"
+              terraform -chdir=infra workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+              terraform -chdir=infra apply "${{ inputs.environment }}.plan"
