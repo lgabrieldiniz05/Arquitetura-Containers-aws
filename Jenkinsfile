@@ -27,8 +27,7 @@ pipeline {
                 }
             }
         }
-    }
-    stages {
+    
         stage('init'){
             steps {
                 dir('.') { // Representa o diretório raiz
