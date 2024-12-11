@@ -30,6 +30,10 @@ pipeline {
     
         stage('init'){
             steps {
+                withCredentials([
+                    string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) 
                 dir('.') { // Representa o diretório raiz
                     sh '''terraform init -no-color -backend-config="bucket=$AWS_BUCKET" \
                                                  -backend-config="key=$AWS_BUCKET_KEY" \
