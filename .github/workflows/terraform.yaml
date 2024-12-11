@@ -45,6 +45,7 @@ jobs:
         run: |
             DESTROY="$(jq -r '.${{ inputs.environment }}' ./infra/destroy_config.json)"
             echo "destroy=$(echo $DESTROY)" >> $GITHUB_OUTPUT
+
           ### Init
           ### Foi acrescentada uma condicional if para verificar o step do destroy está como true ou false
       - name: Terraform Init
@@ -56,6 +57,14 @@ jobs:
           ### Validate
       - name: Terraform Validate
         run: terraform validate
+
+        ### Destroy
+      - name: Terraform Destroy
+        if: steps.read-destroy-config.outputs.destroy == 'true'
+        id: terraform-destroy
+        run: |
+          terraform -chdir=infra workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+          terraform -chdir=infra destroy -var-file="./envs/${{ inputs.environment }}/terraform.tfvars" -auto-approve
 
           ### Plan
       - name: Terraform Plan
