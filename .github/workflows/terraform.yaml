@@ -64,7 +64,7 @@ jobs:
         id: terraform-destroy
         run: |
           terraform -chdir=infra workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-          terraform -chdir=infra destroy -var-file="./envs/${{ inputs.environment }}/terraform.tfvars" -auto-approve
+          terraform -chdir=infra destroy -var-file="environment/${{ inputs.environment }}/terraform.tfvars" -auto-approve
 
           ### Plan
       - name: Terraform Plan
