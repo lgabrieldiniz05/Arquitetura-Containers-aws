@@ -38,7 +38,15 @@ jobs:
           role-to-assume: ${{ inputs.aws-assume-role-arn }}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ inputs.aws-region }}
-  
+
+          ### Destroy
+      - name: Read destroy configuration
+        id: read-destroy-config
+        run: |
+            DESTROY="$(jq -r '.${{ inputs.environment }}' ./infra/destroy_config.json)"
+            echo "destroy=$(echo $DESTROY)" >> $GITHUB_OUTPUT
+          ### Init
+          ### Foi acrescentada uma condicional if para verificar o step do destroy está como true ou false
       - name: Terraform Init
         run: |
             cd infra && terraform init \
@@ -46,19 +54,20 @@ jobs:
               -backend-config="key=${{ github.event.repository.name }}" \
               -backend-config="region=${{ inputs.aws-region }}" \
               -backend-config="dynamodb_table=${{ inputs.aws-lock-dynamodb-table }}"
-  
+          ### Validate
       - name: Terraform Validate
         run: terraform validate
-
+          ### Plan
       - name: Terraform Plan
         if: steps.read-destroy-config.outputs.destroy != 'true'
         id: terraform-plan
         run: cd infra &&
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-              terraform plan -var-file="./environment/dev/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
-
+              terraform plan -var-file="./environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
+          ### Apply
+          ### Foi acrescentada uma condicional if para verificar o step do destroy está como true ou false
       - name: Terraform Apply
-        if: steps.read-destroy-config.outputs.destroy != 'true'
+        if: steps.read-destroy-config.outputs.destroy != 'true' 
         id: terraform-apply
         run: cd infra &&
               terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
