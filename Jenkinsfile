@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-    }
+    
         stage('init'){
             steps {
                 withCredentials([
@@ -46,11 +46,12 @@ pipeline {
                                                  -backend-config="key=$AWS_BUCKET_KEY" \
                                                  -backend-config="region=$AWS_DEFAULT_REGION"
                     '''
+                    }
                 }
-            }
             
+            }
         }
-    }
 
+    }
 }
 
