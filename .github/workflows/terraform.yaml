@@ -62,12 +62,8 @@ jobs:
         if: steps.read-destroy-config.outputs.destroy != 'true'
         id: terraform-plan
         run: |
-              pwd
-              cd infra
-              pwd
-              ls
-              terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-              terraform plan -var-file="/environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
+              terraform -chdir=infra  workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+              terraform -chdir=infra plan -var-file="/environment/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan"
           ### Apply
           ### Foi acrescentada uma condicional if para verificar o step do destroy está como true ou false
       - name: Terraform Apply
