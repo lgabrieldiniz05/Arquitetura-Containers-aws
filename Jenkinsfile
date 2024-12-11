@@ -11,7 +11,10 @@ pipeline {
         stage('init'){
             steps {
                 dir('.') { // Representa o diretório raiz
-                    sh 'terraform init -no-color'
+                    sh 'terraform init -no-color -backend-config="bucket=$AWS_BUCKET" \
+                                                 -backend-config="key=$AWS_BUCKET_KEY" \ 
+                                                 -backend-config="region=$AWS_DEFAULT_REGION"
+                    '
                 }
             }
         }
