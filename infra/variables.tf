@@ -16,7 +16,7 @@ variable "capacity_providers" {
 
 variable "cluster_name" {
   description = "Nome do cluster do Elastic container Service"
-  type = string
+  type        = string
 }
 
 

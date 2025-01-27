@@ -26,10 +26,10 @@ resource "aws_iam_role_policy" "task_role_policy" {
     Statement = [
       {
         Action = [
-                "ssmmessages:CreateControlChannel",
-                "ssmmessages:CreateDataChannel",
-                "ssmmessages:OpenControlChannel",
-                "ssmmessages:OpenDataChannel"
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
         ],
         Resource = "*",
         Effect   = "Allow"
