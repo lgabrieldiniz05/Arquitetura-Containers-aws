@@ -19,35 +19,6 @@ variable "cluster_name" {
   type = string
 }
 
-variable "service_name" {
-  type        = string
-  description = "Nome do serviço a ser utilizado no ECS ou identificador similar."
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "ID da VPC onde os recursos relacionados ao serviço serão provisionados."
-}
-
-variable "private_subnets" {
-  type        = list(string)
-  description = "Lista de IDs das subnets privadas onde o serviço será implantado."
-}
-
-variable "service_port" {
-  type        = number
-  description = "Porta na qual o serviço estará acessível."
-}
-
-variable "service_cpu" {
-  type        = number
-  description = "Quantidade de CPU alocada para o serviço, especificada em unidades de CPU do ECS."
-}
-
-variable "service_memory" {
-  type        = number
-  description = "Quantidade de memória alocada para o serviço, especificada em MB."
-}
 
 
 
