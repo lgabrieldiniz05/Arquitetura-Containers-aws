@@ -26,19 +26,10 @@ resource "aws_iam_role_policy" "service_execution_role" {
     Statement = [
       {
         Action = [
-          "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
-          "elasticloadbalancing:DeregisterTargets",
-          "elasticloadbalancing:Describe*",
-          "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
-          "elasticloadbalancing:RegisterTargets",
-          "ec2:Describe*",
-          "ec2:AuthorizeSecurityGroupIngress",
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
+                "ssmmessages:CreateControlChannel",
+                "ssmmessages:CreateDataChannel",
+                "ssmmessages:OpenControlChannel",
+                "ssmmessages:OpenDataChannel"
         ],
         Resource = "*",
         Effect   = "Allow"
