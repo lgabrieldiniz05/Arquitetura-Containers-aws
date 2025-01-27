@@ -18,29 +18,33 @@ resource "aws_iam_role" "service_execution_role" {
 }
 
 resource "aws_iam_role_policy" "service_execution_role" {
-    name = format("%s-service-policy", var.service_name)
-    role = aws_iam_role.service_execution_role.id
+  name = format("%s-service-policy", var.service_name)
+  role = aws_iam_role.service_execution_role.id
 
-    policy = {
-    "Version": "2012-10-17"
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "s3:GetBucketLocation",
-                "kms:Decrypt",
-                "secretsmanager:GetSecretValue"
-            ],
-            "Resource": "*"
-        },
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+          "elasticloadbalancing:DeregisterTargets",
+          "elasticloadbalancing:Describe*",
+          "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+          "elasticloadbalancing:RegisterTargets",
+          "ec2:Describe*",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Resource = "*",
+        Effect   = "Allow"
+      },
     ]
+  })
 }
-  
-}
+
 
