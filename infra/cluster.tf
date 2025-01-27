@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "main" {
-  name = format("%s-cluster", var.project_name)
+  name = var.cluster_name
 
   setting {
     name = "containerInsights"
