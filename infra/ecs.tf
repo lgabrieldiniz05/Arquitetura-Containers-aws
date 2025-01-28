@@ -4,4 +4,5 @@ module "service" {
   service_cpu = 256
   service_memory = 512
   service_port = 80
+  region = "us-east-1"
 }
