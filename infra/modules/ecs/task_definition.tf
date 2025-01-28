@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "main" {
     container_definitions = jsondecode([
         {
         name = var.service_name, 
-        image = format("%s:latest", aws_ecr_repository.uri),
+        image = format("%s:latest", aws_ecr_repository.main.repository_url),
         cpu = var.service_cpu
         memory = var.service_memory
         
