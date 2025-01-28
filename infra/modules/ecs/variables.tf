@@ -22,42 +22,6 @@ variable "service_memory" {
   description = "Quantidade de memória alocada para o serviço, especificada em MB."
 }
 
-variable "service_listener" {
-  type        = string
-  description = "ARN do listener do Application Load Balancer que será usado pelo serviço."
-}
 
-variable "service_task_execution_role" {
-  type        = string
-  description = "ARN da role de execução de tarefas do ECS que o serviço usará para executar."
-}
 
-variable "service_launch_type" {
-  type        = string
-  description = "Tipo de lançamento para o serviço no ECS, como 'FARGATE' ou 'EC2'."
-}
 
-variable "service_task_count" {
-  type        = number
-  description = "Número de instâncias da tarefa a serem executadas simultaneamente no serviço."
-}
-
-variable "service_hosts" {
-  type        = list(string)
-  description = "Lista de hosts associados ao serviço, geralmente especificados para configurações DNS."
-}
-
-variable "service_healthcheck" {
-  type        = map(any)
-  description = "Configuração do health check do serviço, incluindo caminho e protocolo."
-}
-
-variable "environment_variables" {
-  type        = list(map(string))
-  description = "Lista de variáveis de ambiente que serão passadas para o serviço."
-}
-
-variable "capabilities" {
-  type        = list(string)
-  description = "Lista de capacidades necessárias para a execução do serviço, como 'CAP_SYS_ADMIN' para recursos Linux específicos."
-}
